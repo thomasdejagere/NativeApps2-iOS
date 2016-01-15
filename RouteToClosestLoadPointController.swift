@@ -18,7 +18,7 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
     let locationManager = CLLocationManager()
     
     var currentLocation: CLLocation?
-    var loadPointLocations: [CLLocation] = []
+    var loadPointLocations: [LoadPoint] = []
 
     var closestLocation: CLLocation?
     var closestLoadPoint: LoadPoint?
@@ -28,7 +28,32 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
         locationManager.delegate = self
         locationManager.requestLocation()
         
+        //normaal staat deze code alleen wanneer de locatie van de user wordt opgevraagd. Maar omdat dit problemen geeft staat deze code nu hier
+        fillLocationsArray()
         
+        currentLocation = CLLocation(latitude: 51.0387879, longitude: 3.7335293)
+        
+        calculateClosestLoadPointToUser(loadPointLocations, closestToLocation: currentLocation!)
+        
+        print("Found closest location: \(closestLoadPoint!.location!)")
+        //we receive the location from the emulator but because of some location errors in the emulator we are going to use a static location
+        let center = CLLocationCoordinate2D(latitude: 51.0387879, longitude: 3.7335293)
+        let visibleRegion = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.07, longitudeDelta: 0.07))
+        
+        let secondAnnotation = CLLocationCoordinate2D(latitude: closestLoadPoint!.location!.coordinate.latitude, longitude: closestLoadPoint!.location!.coordinate.longitude)
+        
+        mapView.region = visibleRegion
+        
+        let closestLoadPointAnnotation = MKPointAnnotation()
+        closestLoadPointAnnotation.coordinate = secondAnnotation
+        closestLoadPointAnnotation.title = "Blue Motion"
+        closestLoadPointAnnotation.subtitle = "5" + " are available"
+        mapView.addAnnotation(closestLoadPointAnnotation)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = center
+        annotation.title = "Myself!"
+        mapView.addAnnotation(annotation)
     }
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
@@ -39,23 +64,22 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
             
             currentLocation = CLLocation(latitude: 51.0387879, longitude: 3.7335293)
             
-            let dest = calculateClosestLoadPointToUser(loadPointLocations, closestToLocation: currentLocation!)
+            calculateClosestLoadPointToUser(loadPointLocations, closestToLocation: currentLocation!)
+
             
-            closestLocation = dest
-            
-            print("Found closest location: \(dest)")
+            print("Found closest location: \(closestLoadPoint!.location!)")
             //we receive the location from the emulator but because of some location errors in the emulator we are going to use a static location
             let center = CLLocationCoordinate2D(latitude: 51.0387879, longitude: 3.7335293)
-            let visibleRegion = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.07, longitudeDelta: 0.07))
+            let visibleRegion = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.04, longitudeDelta: 0.04))
             
-            let secondAnnotation = CLLocationCoordinate2D(latitude: dest!.coordinate.longitude, longitude: dest!.coordinate.longitude)
+            let secondAnnotation = CLLocationCoordinate2D(latitude: closestLoadPoint!.location!.coordinate.longitude, longitude: closestLoadPoint!.location!.coordinate.longitude)
             
             mapView.region = visibleRegion
             
             let closestLoadPointAnnotation = MKPointAnnotation()
             closestLoadPointAnnotation.coordinate = secondAnnotation
-            closestLoadPointAnnotation.title = "Blue Motion"
-            closestLoadPointAnnotation.subtitle = "5" + " are available"
+            closestLoadPointAnnotation.title = "\(closestLoadPoint!.eigenaar)"
+            closestLoadPointAnnotation.subtitle = "\(closestLoadPoint!.aantal_beschikbaar)" + " are available"
             mapView.addAnnotation(closestLoadPointAnnotation)
             
             let annotation = MKPointAnnotation()
@@ -63,7 +87,7 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
             annotation.title = "Myself!"
             mapView.addAnnotation(annotation)
             
-            calculateDirections(0, time: 0, routes: [])
+            //calculateDirections(0, time: 0, routes: [])
         }
     }
     
@@ -73,22 +97,27 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
     
 
     func fillLocationsArray() {
-        loadPointLocations.append(CLLocation(latitude: CLLocationDegrees(51.1197163161912), longitude: CLLocationDegrees(3.77541978657061)))
-        loadPointLocations.append(CLLocation(latitude: CLLocationDegrees(51.0515833054301), longitude: CLLocationDegrees(3.73131396512181)))
-        loadPointLocations.append(CLLocation(latitude: CLLocationDegrees(51.0493283894632), longitude: CLLocationDegrees(3.70729349057797)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 1, location: Location(latitude: 51.049205022076, longitude: 3.70777306426007)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0493283894632, longitude: 3.70729349057797)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 3, location: Location(latitude: 51.0535873986523, longitude: 3.71851284099447)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0535873986523, longitude: 3.71851284099447)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0515833054301, longitude: 3.73131396512181)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0417625983028, longitude: 3.72575680098206)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0473571413691, longitude: 3.72794392182306)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0470468542373, longitude: 3.72791798040334)))
+        self.loadPointLocations.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.1197163161912, longitude: 3.77541978657061)))
     }
     
-    func calculateClosestLoadPointToUser(locations: [CLLocation], closestToLocation location: CLLocation) -> CLLocation? {
+    func calculateClosestLoadPointToUser(locations: [LoadPoint], closestToLocation location: CLLocation){
     
         var smallestDistance: CLLocationDistance?
         for loc in locations {
-            let distance = location.distanceFromLocation(loc)
+            let distance = location.distanceFromLocation(loc.location!)
             if smallestDistance == nil || distance < smallestDistance {
-                closestLocation = loc
+                closestLoadPoint = loc
                 smallestDistance = distance
              }
         }
-        return closestLocation
     }
     
     //implementatie voor de route van de locatie van de user naar de locatie van de dichtsbijzijnde laadpaal te verzorgen

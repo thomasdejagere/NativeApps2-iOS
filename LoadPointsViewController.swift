@@ -64,9 +64,15 @@ class LoadPointsViewController: UITableViewController
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
         
-        self.loadPoints.append(LoadPoint(fid: 0, id: 0, type_voert: VehicleType.car, exploitant: "Wiebe Inc.", eigenaar: "Wiebe", vanaf: "2014", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.1197163161912, longitude: 3.77541978657061)))
-        self.loadPoints.append(LoadPoint(fid: 1, id: 1, type_voert: VehicleType.bike, exploitant: "Thomas Inc.", eigenaar: "Thomas", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 5, location: Location(latitude: 51.0515833054301, longitude: 3.73131396512181)))
-        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Motion Inc.", eigenaar: "Blue Motion", vanaf: "2013", betaalsyst: "visa", aantal_beschikbaar: 0, location: Location(latitude: 51.0493283894632, longitude: 3.70729349057797)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 1, location: Location(latitude: 51.049205022076, longitude: 3.70777306426007)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0493283894632, longitude: 3.70729349057797)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.bike, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 3, location: Location(latitude: 51.0535873986523, longitude: 3.71851284099447)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0535873986523, longitude: 3.71851284099447)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.bike, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0515833054301, longitude: 3.73131396512181)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0417625983028, longitude: 3.72575680098206)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.bike, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0473571413691, longitude: 3.72794392182306)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.0470468542373, longitude: 3.72791798040334)))
+        self.loadPoints.append(LoadPoint(fid: 2, id: 2, type_voert: VehicleType.car, exploitant: "Blue Corner", eigenaar: "Blue Corner", vanaf: "2015", betaalsyst: "sms_betalen", aantal_beschikbaar: 2, location: Location(latitude: 51.1197163161912, longitude: 3.77541978657061)))
         
     }
     

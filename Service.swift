@@ -1,6 +1,7 @@
 import Foundation
 
 class Service {
+    //problemen met het gebruiken van een library dus hierdoor is het ophalen van de JSON mislukt
     enum Error: ErrorType
     {
         case MissingJsonProperty(name: String)
