@@ -46,8 +46,8 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
         
         let closestLoadPointAnnotation = MKPointAnnotation()
         closestLoadPointAnnotation.coordinate = secondAnnotation
-        closestLoadPointAnnotation.title = "Blue Motion"
-        closestLoadPointAnnotation.subtitle = "5" + " are available"
+        closestLoadPointAnnotation.title = "\(closestLoadPoint!.eigenaar)"
+        closestLoadPointAnnotation.subtitle = "\(closestLoadPoint!.aantal_beschikbaar)" + " are available"
         mapView.addAnnotation(closestLoadPointAnnotation)
         
         let annotation = MKPointAnnotation()
@@ -122,7 +122,7 @@ class RouteToClosestLoadPointController: UIViewController, CLLocationManagerDele
     
     //implementatie voor de route van de locatie van de user naar de locatie van de dichtsbijzijnde laadpaal te verzorgen
     //jammergenoeg krijg ik die niet werkende
-        
+    //source: http://www.raywenderlich.com/87008/overlay-views-mapkit-swift-tutorial
     func calculateDirections(index: Int, var time: NSTimeInterval, var routes: [MKRoute]) {
         let destinationLocation = closestLocation
         let currentLocationMark = MKPlacemark(coordinate: CLLocationCoordinate2DMake(currentLocation!.coordinate.latitude, currentLocation!.coordinate.longitude), addressDictionary: nil)
